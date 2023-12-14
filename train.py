@@ -132,6 +132,7 @@ class UNet(nn.Module):
 
         return x
 
+
 class ImageDataset(torch.utils.data.Dataset):
     def __init__(self, data_dir, transform=None):
         self.data_dir = data_dir
@@ -172,7 +173,7 @@ class ImageDataset(torch.utils.data.Dataset):
 
 class ToTensor(object):
     def __call__(self, data):
-        label, input = data['input'], data['label']
+        label, input = data['label'], data['input']
         # numpy image : (H, W, CH), torch image: (CH, H, W)
         label = label.transpose((2, 0, 1)).astype(np.float32)
         input = input.transpose((2, 0, 1)).astype(np.float32)
@@ -231,8 +232,8 @@ optim = torch.optim.Adam(net.parameters(), lr=lr)
 # etc
 num_data_train = len(dataset_train)
 num_data_val = len(dataset_val)
-num_batch_train = np.ceil(num_data_train / BATCH_SIZE)
-num_batch_val = np.ceil(num_data_val / BATCH_SIZE)
+num_batch_train = int(np.ceil(num_data_train / BATCH_SIZE))
+num_batch_val = int(np.ceil(num_data_val / BATCH_SIZE))
 # etc function
 fn_tonumpy = lambda x: x.to('cpu').detach().numpy().transpose(0, 2, 3, 1)
 fn_denorm = lambda x, mean, std: (x*std) + mean
@@ -255,7 +256,7 @@ def load(ckpt_dir, net, optim):
         return net, optim, epoch
     
     ckpt_lst = os.listdir(ckpt_dir)
-    ckpt_lst.sort(key=lambda f: int(''.join(filter(str.indigit, f))))
+    ckpt_lst.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
     dict_model = torch.load(f"{ckpt_dir}/{ckpt_lst[-1]}")
     
