@@ -3,7 +3,7 @@
 * Image Dataset : ISBI 2012 EM segmentation
   - Data Link : https://github.com/alexklibisz/isbi-2012
 * Train code
-‘’'
+'''
 python3 “./drive/MyDrive/training_unet/train.py”
 --lr 1e-2 --batch_size 2 --num_epoch 200
 --data_dir “./drive/MyDrive/training_unet/dataset”
@@ -12,9 +12,10 @@ python3 “./drive/MyDrive/training_unet/train.py”
 --result_dir “./drive/MyDrive/training_unet/results_v2”
 --mode “train”
 --train_continue “off”
-‘’'
+'''
+
 * Test code
-‘’'
+'''
 python3 “./drive/MyDrive/training_unet/train.py”
 --lr 1e-2 --batch_size 2 --num_epoch 200
 --data_dir “./drive/MyDrive/training_unet/dataset”
@@ -23,4 +24,4 @@ python3 “./drive/MyDrive/training_unet/train.py”
 --result_dir “./drive/MyDrive/training_unet/results_v2"
 --mode “test”
 --train_continue “off”
-‘’'
+'''
