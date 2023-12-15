@@ -203,15 +203,18 @@ else:   # TEST MODE
             for j in range(label.shape[0]):
                 id = num_batch_test * (batch_idx - 1) + j
                 # save (png format)
-                plt.imsave(os.path.join(result_dir, "png", f"label_{id}.png", label[j].squeeze(), cmap='gray'))
-                plt.imsave(os.path.join(result_dir, "png", f"input_{id}.png", input[j].squeeze(), cmap='gray'))
-                plt.imsave(os.path.join(result_dir, "png", f"output_{id}.png", output[j].squeeze(), cmap='gray'))
+                plt.imsave(os.path.join(result_dir, "png", f"label_{id}.png"), label[j].squeeze(), cmap='gray')
+                plt.imsave(os.path.join(result_dir, "png", f"input_{id}.png"), input[j].squeeze(), cmap='gray')
+                plt.imsave(os.path.join(result_dir, "png", f"output_{id}.png"), output[j].squeeze(), cmap='gray')
                 # save (numpy format)
                 np.save(os.path.join(result_dir, "numpy", f"label_{id}.npy", label[j].squeeze()))
                 np.save(os.path.join(result_dir, "numpy", f"input_{id}.npy", input[j].squeeze()))
                 np.save(os.path.join(result_dir, "numpy", f"output_{id}.npy", output[j].squeeze()))
                 
     print(f"AVERAGE TEST: BATCH [{batch_idx} / {num_batch_test}] | LOSS [{ np.mean(loss_arr) }]")
+
+
+
 
 
 # #%% test
