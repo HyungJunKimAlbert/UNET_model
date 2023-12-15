@@ -20,8 +20,8 @@ from utils import save, load
 parser = argparse.ArgumentParser(description="Train the UNet", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
-parser.add_argument("--batch size", default=4, type=int, dest="BATCH_SIZE")
-parser.add_argument("--num_epoch", default=100, type=int, dest="NUM_EPOCHS")
+parser.add_argument("--batch_size", default=4, type=int, dest="batch_size")
+parser.add_argument("--num_epoch", default=100, type=int, dest="num_epoch")
 
 parser.add_argument("--data_dir", default="./datasets", type=str, dest="data_dir")
 parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
@@ -49,6 +49,20 @@ train_continue = args.train_continue
 
 # define  device 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+
+print(f"Learning Rate: { lr }")
+print(f"Batch size: { BATCH_SIZE }")
+print(f"NUM_EPOCHS: { NUM_EPOCHS }")
+
+print(f"data_dir: { data_dir }")
+print(f"ckpt_dir: { ckpt_dir }")
+print(f"log_dir: { log_dir }")
+print(f"result_dir: { result_dir }")
+
+print(f"Mode: { mode }")
+print(f"Train_continue: { train_continue }")
+
 
 # create result directory
 if not os.path.exists(result_dir):
@@ -158,7 +172,7 @@ if mode == 'train': # TRAIN MODE
                 writer_val.add_image('output', output, num_batch_val * (epoch-1) + batch_idx, dataformats='NHWC')
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
         
-        if epoch % 10 == 0:
+        if epoch % 50 == 0:
             save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch)
     # Tensorboard close
     writer_train.close()
