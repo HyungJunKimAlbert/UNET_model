@@ -214,9 +214,6 @@ else:   # TEST MODE
     print(f"AVERAGE TEST: BATCH [{batch_idx} / {num_batch_test}] | LOSS [{ np.mean(loss_arr) }]")
 
 
-
-
-
 # #%% test
 # transform = transforms.Compose([
 #     Normalization(mean=0.5, std=0.5),
